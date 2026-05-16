@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 920" role="img" aria-labelledby="title desc">
+  <title id="title">Cyber agent Nika</title>
+  <desc id="desc">Stylized high-tech cyberpunk heroine in black, green, blue and yellow accents.</desc>
+  <defs>
+    <style>
+      #aura { animation: auraPulse 4s ease-in-out infinite; transform-origin: 360px 392px; }
+      #circuits path { stroke-dasharray: 210 42; animation: circuitDash 6s linear infinite; }
+      #sparks circle { animation: sparkPulse 2.4s ease-in-out infinite; transform-origin: center; }
+      #sparks circle:nth-child(2n) { animation-delay: .5s; }
+      #hero { animation: heroBreath 4.8s ease-in-out infinite; transform-origin: 360px 620px; }
+      #visorGlow { animation: visorPulse 1.8s ease-in-out infinite; }
+      #yellowBars { animation: yellowBars 2.2s ease-in-out infinite; }
+      @keyframes auraPulse {
+        0%, 100% { opacity: .78; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.035); }
+      }
+      @keyframes circuitDash {
+        to { stroke-dashoffset: -252; }
+      }
+      @keyframes sparkPulse {
+        0%, 100% { opacity: .35; transform: scale(.88); }
+        50% { opacity: .95; transform: scale(1.25); }
+      }
+      @keyframes heroBreath {
+        0%, 100% { transform: translate(90px, 54px) scale(1); }
+        50% { transform: translate(90px, 48px) scale(1.012); }
+      }
+      @keyframes visorPulse {
+        0%, 100% { stroke-opacity: .88; stroke-width: 12; }
+        50% { stroke-opacity: 1; stroke-width: 15; }
+      }
+      @keyframes yellowBars {
+        0%, 100% { stroke-opacity: .82; }
+        50% { stroke-opacity: 1; }
+      }
+    </style>
+    <linearGradient id="bg" x1="86" x2="630" y1="46" y2="830" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#04121f"/>
+      <stop offset=".42" stop-color="#06283a"/>
+      <stop offset="1" stop-color="#02080d"/>
+    </linearGradient>
+    <linearGradient id="suit" x1="210" x2="554" y1="390" y2="830" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0f2433"/>
+      <stop offset=".55" stop-color="#06131e"/>
+      <stop offset="1" stop-color="#02070d"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="226" x2="516" y1="102" y2="410" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#11395c"/>
+      <stop offset=".56" stop-color="#071625"/>
+      <stop offset="1" stop-color="#020609"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="48%">
+      <stop offset="0" stop-color="#2fffd2" stop-opacity=".85"/>
+      <stop offset=".44" stop-color="#23a7ff" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#0a1020" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.05 0 0 0 0 0.95 0 0 0 0 0.82 0 0 0 .85 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="yellowGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 1 0 0 0 0 .78 0 0 0 0 .1 0 0 0 .95 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="720" height="920" rx="54" fill="url(#bg)"/>
+  <circle id="aura" cx="360" cy="392" r="314" fill="url(#glow)"/>
+  <g id="circuits" opacity=".34" stroke="#1df7d0" stroke-width="2">
+    <path d="M66 148h156l42 42h150l52-52h190"/>
+    <path d="M78 756h144l42-42h166l44 44h168"/>
+    <path d="M95 252h102l34 34h92"/>
+    <path d="M505 278h72l34-34h54"/>
+    <path d="M112 621h96l28-28h70"/>
+    <path d="M480 640h78l34 34h62"/>
+  </g>
+  <g id="sparks" opacity=".48" fill="#28ffd1">
+    <circle cx="222" cy="190" r="5"/>
+    <circle cx="466" cy="138" r="6"/>
+    <circle cx="612" cy="244" r="4"/>
+    <circle cx="208" cy="714" r="5"/>
+    <circle cx="580" cy="758" r="6"/>
+  </g>
+  <g id="hero" transform="translate(90 54)">
+    <path d="M166 326c-44-86-18-206 68-262 68-44 174-40 234 13 64 56 78 158 36 254-21 47-46 83-40 144l-258 4c5-63-18-103-40-153Z" fill="url(#hair)"/>
+    <path d="M168 322c-24-74 11-155 88-188 35-15 80-18 122-9 76 17 124 78 128 152 3 58-23 111-56 143-51 50-168 54-220 3-28-27-48-60-62-101Z" fill="#e5b993"/>
+    <path d="M196 274c35-38 109-48 168-44 57 4 105 17 128 41-7-81-67-145-151-150-91-6-158 46-145 153Z" fill="#081019"/>
+    <path d="M190 276c28-13 78-16 136-15 86 2 140 11 174 25l-20 58c-24 10-72 15-132 15-68 0-128-8-154-23l-4-60Z" fill="#03070d" filter="url(#softGlow)"/>
+    <path id="visorGlow" d="M214 297c70 15 178 15 250 0" fill="none" stroke="#2cffd0" stroke-width="12" stroke-linecap="round"/>
+    <path id="yellowBars" d="M247 296h60m62 0h62" stroke="#fff069" stroke-width="6" stroke-linecap="round" filter="url(#yellowGlow)"/>
+    <path d="M305 402c18 11 55 11 75 0" fill="none" stroke="#2b1b13" stroke-width="7" stroke-linecap="round"/>
+    <path d="M119 810c6-132 34-248 82-337 35-64 87-98 143-99 57-1 112 33 148 97 51 90 79 207 87 339H119Z" fill="url(#suit)"/>
+    <path d="M196 518h296" stroke="#1df7d0" stroke-width="4" opacity=".82"/>
+    <path d="M240 478l70 104h62l76-104" fill="none" stroke="#21a8ff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M332 476l-22 270m74-270 20 270" stroke="#142d3f" stroke-width="20" stroke-linecap="round"/>
+    <path d="M278 622h126l22 58-84 62-84-62 20-58Z" fill="#03111c" stroke="#2cffd0" stroke-width="5"/>
+    <path d="M301 654h82m-56 32h30" stroke="#fff069" stroke-width="7" stroke-linecap="round" filter="url(#yellowGlow)"/>
+    <path d="M130 792c24-78 55-135 94-172m332 172c-23-78-54-135-94-172" stroke="#1df7d0" stroke-width="8" stroke-linecap="round" opacity=".58"/>
+    <path d="M92 652c-36 40-52 90-48 149h100c-8-55 2-100 30-135l-82-14Z" fill="#071827" stroke="#21a8ff" stroke-width="4"/>
+    <path d="M590 652c36 40 52 90 48 149H538c8-55-2-100-30-135l82-14Z" fill="#071827" stroke="#21a8ff" stroke-width="4"/>
+  </g>
+  <g transform="translate(96 76)" opacity=".92">
+    <path d="M36 36h96v28H64v68H36V36Z" fill="#fff069"/>
+    <path d="M492 36h96v96h-28V64h-68V36Z" fill="#2cffd0"/>
+    <path d="M36 708h28v68h68v28H36v-96Z" fill="#2cffd0"/>
+    <path d="M560 708h28v96h-96v-28h68v-68Z" fill="#fff069"/>
+  </g>
+</svg>

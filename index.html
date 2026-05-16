@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#04121f" />
+    <title>Кодовый Шторм: Протокол Формы</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="stormCanvas" aria-hidden="true"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="screen-fx" id="screenFx" aria-hidden="true"></div>
+    <div class="combo-toast hidden" id="comboToast" aria-hidden="true"></div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <button class="brand" id="brandButton" type="button" aria-label="KIBERone">
+          <img src="assets/kiberone_logo.png" alt="KIBERone" />
+          <span>
+            <strong>Кодовый Шторм</strong>
+            <small>Протокол Формы</small>
+          </span>
+        </button>
+
+        <nav class="status-strip" aria-label="Статус игры">
+          <div class="status-pill">
+            <span class="status-label">Сектор</span>
+            <strong id="levelBadge">01 / 40</strong>
+          </div>
+          <div class="score-core" id="scoreRing">
+            <span class="status-label">Очки</span>
+            <strong id="scoreBadge">0</strong>
+          </div>
+          <div class="status-pill compact-pill">
+            <span class="status-label">Щит</span>
+            <strong id="shieldBadge">0%</strong>
+          </div>
+          <button class="icon-button" id="musicButton" type="button" aria-pressed="false" title="Музыка">
+            <span class="music-icon">AUD</span>
+          </button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero-panel" id="startScreen">
+          <div class="hero-copy">
+            <p class="eyebrow">PHP + SQL / интерактивный квест</p>
+            <h1>Кодовый Шторм: Протокол Формы</h1>
+            <p>
+              Городской учебный портал атакован Data Storm. Агент Ника входит в сеть, чтобы собрать протоколы форм,
+              закрыть SQL-уязвимости, защитить пароли и восстановить cookie-модули.
+            </p>
+            <div class="hero-actions">
+              <button class="primary-button" id="startButton" type="button">Запустить миссию</button>
+              <button class="secondary-button" id="continueButton" type="button">Продолжить</button>
+            </div>
+          </div>
+
+          <div class="hero-stage" aria-hidden="true">
+            <img class="hero-agent" src="assets/nika-cyber-agent.svg" alt="" />
+            <div class="terminal-card">
+              <span>AGENT</span>
+              <strong>НИКА / WEB SHIELD</strong>
+              <small>status: online</small>
+            </div>
+            <div class="threat-card">
+              <span>DATA STORM</span>
+              <strong>40 locks</strong>
+              <small>2 arcade gates</small>
+            </div>
+          </div>
+        </section>
+
+        <section class="transmission-panel hidden" id="transmissionScreen" aria-live="polite">
+          <div class="transmission-shell">
+            <div class="transmission-avatar">
+              <img src="assets/nika-cyber-agent.svg" alt="" />
+            </div>
+            <div class="transmission-copy">
+              <p class="eyebrow" id="transmissionKicker">Передача Ники</p>
+              <h2 id="transmissionTitle">Вход в сектор</h2>
+              <p id="transmissionText" class="typewriter-text"></p>
+              <button class="primary-button" id="transmissionNext" type="button">Войти в сектор</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="game-grid hidden" id="gameScreen" aria-live="polite">
+          <aside class="mission-panel">
+            <div class="agent-badge">
+              <img src="assets/nika-cyber-agent.svg" alt="" />
+              <div>
+                <p class="agent-name">Агент Ника</p>
+                <p class="agent-role">специалист по веб-защите</p>
+              </div>
+            </div>
+
+            <div class="progress-block">
+              <div class="progress-top">
+                <span id="chapterLabel">Глава 1</span>
+                <strong id="progressPercent">0%</strong>
+              </div>
+              <div class="progress-track">
+                <span id="progressBar"></span>
+              </div>
+            </div>
+
+            <ol class="chapter-map" id="chapterMap" aria-label="Карта глав"></ol>
+          </aside>
+
+          <section class="quest-card">
+            <div class="quest-head">
+              <p class="eyebrow" id="questChapter">Глава</p>
+              <h2 id="questTitle">Задание</h2>
+              <p id="questStory" class="story-text"></p>
+            </div>
+
+            <div class="question-box">
+              <p id="questQuestion"></p>
+              <form id="answerForm">
+                <div id="answerArea"></div>
+              </form>
+            </div>
+
+            <div class="hint-box hidden" id="hintBox"></div>
+            <div class="feedback-box hidden" id="feedbackBox"></div>
+
+            <div class="quest-actions">
+              <button class="secondary-button" id="hintButton" type="button">Подсказка</button>
+              <button class="primary-button" id="checkButton" type="button">Ответить</button>
+              <button class="secondary-button hidden" id="nextButton" type="button">Следующий сектор</button>
+            </div>
+          </section>
+        </section>
+
+        <section class="arcade-panel hidden" id="arcadeScreen">
+          <div class="arcade-copy">
+            <p class="eyebrow" id="arcadeKicker">Аркадный шлюз</p>
+            <h2 id="arcadeTitle">Нейро-трасса</h2>
+            <p id="arcadeStory"></p>
+            <div class="arcade-sequence" id="arcadeSequence"></div>
+            <div class="feedback-box hidden" id="arcadeFeedback"></div>
+            <button class="primary-button hidden" id="arcadeContinue" type="button">Продолжить миссию</button>
+          </div>
+          <div class="arcade-board" id="arcadeBoard" aria-label="Аркадная головоломка"></div>
+        </section>
+
+        <section class="finish-panel hidden" id="finishScreen">
+          <div class="finish-art">
+            <img src="assets/finale-core.svg" alt="" />
+          </div>
+          <p class="eyebrow">Финальный протокол восстановлен</p>
+          <h2>Портал снова под защитой</h2>
+          <p id="finishText"></p>
+          <div class="certificate">
+            <span>Ранг агента</span>
+            <strong id="rankText">Архитектор Кодового Щита</strong>
+            <small id="finalScoreText"></small>
+          </div>
+          <button class="primary-button" id="restartButton" type="button">Пройти заново</button>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <button class="text-button" id="resetButton" type="button">Сбросить прогресс</button>
+        <span>Статический проект: работает локально и на GitHub Pages без внешних зависимостей.</span>
+      </footer>
+    </div>
+
+    <dialog id="accessDialog" class="access-dialog">
+      <form method="dialog">
+        <h2>Системное окно</h2>
+        <p>Введите код доступа.</p>
+        <input id="accessCode" type="password" inputmode="numeric" autocomplete="off" placeholder="••••" />
+        <menu>
+          <button class="secondary-button" value="cancel">Закрыть</button>
+          <button class="primary-button" id="accessApply" value="default" type="button">Применить</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>

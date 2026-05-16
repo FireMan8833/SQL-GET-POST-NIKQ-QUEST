@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Final cyber core</title>
+  <desc id="desc">A restored neon data core above a futuristic city grid.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#02070d"/>
+      <stop offset=".5" stop-color="#06233a"/>
+      <stop offset="1" stop-color="#03130f"/>
+    </linearGradient>
+    <radialGradient id="core" cx="50%" cy="43%" r="42%">
+      <stop offset="0" stop-color="#fff36c"/>
+      <stop offset=".18" stop-color="#2cffd0"/>
+      <stop offset=".48" stop-color="#1c8cff" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#05111d" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="720" fill="url(#sky)"/>
+  <rect y="0" width="1200" height="720" fill="url(#core)"/>
+  <g opacity=".32" stroke="#23ffd1" stroke-width="2">
+    <path d="M0 602h1200"/>
+    <path d="M0 648h1200"/>
+    <path d="M0 698h1200"/>
+    <path d="M114 720 450 420"/>
+    <path d="M324 720 522 420"/>
+    <path d="M876 720 678 420"/>
+    <path d="M1086 720 750 420"/>
+    <path d="M600 720V420"/>
+  </g>
+  <g transform="translate(600 306)" filter="url(#glow)">
+    <circle r="142" fill="#03111b" stroke="#27ffd2" stroke-width="6"/>
+    <circle r="102" fill="none" stroke="#1c8cff" stroke-width="18" stroke-dasharray="30 18"/>
+    <circle r="62" fill="#fff36c" fill-opacity=".16" stroke="#fff36c" stroke-width="8"/>
+    <path d="M-36-10 0-54 40-8 10 54Z" fill="#2cffd0"/>
+    <path d="M-170 0h-116m456 0h116M0-170v-100M0 170v100" stroke="#fff36c" stroke-width="9" stroke-linecap="round"/>
+  </g>
+  <g opacity=".7">
+    <rect x="86" y="494" width="86" height="178" rx="10" fill="#051521"/>
+    <rect x="194" y="452" width="118" height="220" rx="12" fill="#061a28"/>
+    <rect x="338" y="512" width="78" height="160" rx="10" fill="#04121c"/>
+    <rect x="784" y="502" width="92" height="170" rx="10" fill="#04121c"/>
+    <rect x="900" y="442" width="132" height="230" rx="12" fill="#061a28"/>
+    <rect x="1056" y="526" width="76" height="146" rx="10" fill="#051521"/>
+  </g>
+  <g fill="#2cffd0" opacity=".82">
+    <rect x="116" y="526" width="18" height="8"/>
+    <rect x="228" y="488" width="22" height="8"/>
+    <rect x="264" y="536" width="22" height="8"/>
+    <rect x="930" y="486" width="24" height="8"/>
+    <rect x="972" y="552" width="24" height="8"/>
+    <rect x="1082" y="558" width="20" height="8"/>
+  </g>
+</svg>

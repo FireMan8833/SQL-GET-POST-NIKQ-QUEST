@@ -170,13 +170,13 @@
     </div>
 
     <dialog id="accessDialog" class="access-dialog">
-      <form method="dialog">
+      <form id="accessForm">
         <h2>Системное окно</h2>
         <p>Введите код доступа.</p>
         <input id="accessCode" type="password" inputmode="numeric" autocomplete="off" placeholder="••••" />
         <menu>
-          <button class="secondary-button" value="cancel">Закрыть</button>
-          <button class="primary-button" id="accessApply" value="default" type="button">Применить</button>
+          <button class="secondary-button" type="button" onclick="document.getElementById('accessDialog').close()">Закрыть</button>
+          <button class="primary-button" id="accessApply" type="submit">Применить</button>
         </menu>
       </form>
     </dialog>

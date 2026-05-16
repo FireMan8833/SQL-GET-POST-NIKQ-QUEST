@@ -1345,17 +1345,24 @@ els.arcadeContinue.addEventListener("click", continueAfterArcade);
 els.resetButton.addEventListener("click", resetProgress);
 els.restartButton.addEventListener("click", resetProgress);
 els.musicButton.addEventListener("click", toggleMusic);
-els.accessApply.addEventListener("click", accessAdvance);
+const accessForm = document.querySelector("#accessForm");
+accessForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  accessAdvance();
+});
 els.answerForm.addEventListener("submit", (event) => {
   event.preventDefault();
   checkAnswer();
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "k") {
+  const isInputActive = document.activeElement && (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA");
+  if ((event.ctrlKey && event.altKey && event.key.toLowerCase() === "k") ||
+      (!isInputActive && !els.accessDialog.open && (event.key.toLowerCase() === "p" || event.key.toLowerCase() === "п"))) {
     event.preventDefault();
     els.accessDialog.showModal();
     window.setTimeout(() => els.accessCode.focus(), 30);
+    return;
   }
   if (event.key === "Enter" && !els.accessDialog.open && !els.transmissionScreen.classList.contains("hidden")) {
     event.preventDefault();

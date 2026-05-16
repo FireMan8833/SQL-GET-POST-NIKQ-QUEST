@@ -788,7 +788,14 @@ function showTransmission({ kicker, title, text, onDone, autoClose = false, cele
   els.transmissionScreen.classList.remove("hidden");
   typing.timer = window.setInterval(() => {
     typing.index += 1;
-    els.transmissionText.textContent = typing.text.slice(0, typing.index);
+    let display = typing.text.slice(0, typing.index);
+    if (typing.index < typing.text.length) {
+      display += String.fromCharCode(33 + Math.floor(Math.random() * 94));
+      if (typing.index + 1 < typing.text.length) {
+        display += String.fromCharCode(33 + Math.floor(Math.random() * 94));
+      }
+    }
+    els.transmissionText.textContent = display;
     if (typing.index >= typing.text.length) finishTyping();
   }, 18);
 }
@@ -937,6 +944,11 @@ function showFeedback(type, message) {
 
 function triggerScreenFx(type) {
   els.screenFx.className = `screen-fx ${type}`;
+  if (type === "wrong") {
+    document.body.classList.remove("camera-shake");
+    void document.body.offsetWidth;
+    document.body.classList.add("camera-shake");
+  }
   window.clearTimeout(triggerScreenFx.timer);
   triggerScreenFx.timer = window.setTimeout(() => {
     els.screenFx.className = "screen-fx";
@@ -1369,6 +1381,16 @@ els.brandButton.addEventListener("click", () => {
     window.setTimeout(() => els.accessCode.focus(), 30);
   }
 });
+
+document.body.addEventListener("mouseover", (e) => {
+  if (e.target.tagName === "BUTTON" || e.target.closest(".answer-option") || e.target.closest(".arcade-node")) {
+    if (audio.enabled && audio.ctx) playNote(500 + Math.random() * 100, 0.02, "sine", 0.05);
+  }
+});
+
+if (state.index === 0 && state.score === 0) {
+  els.continueButton.classList.add("hidden");
+}
 
 setupCanvas();
 render();

@@ -700,7 +700,7 @@ h2 {
   width: 68px;
   height: 76px;
   object-fit: cover;
-  object-position: 50% 22%;
+  object-position: center;
   border-radius: 16px;
   animation: badgePulse 3.8s ease-in-out infinite;
 }

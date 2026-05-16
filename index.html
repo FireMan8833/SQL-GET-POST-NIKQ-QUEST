@@ -164,7 +164,10 @@
       </main>
 
       <footer class="footer">
-        <button class="text-button" id="resetButton" type="button">Сбросить прогресс</button>
+        <div style="display: flex; gap: 10px;">
+          <button class="text-button" id="resetButton" type="button">Сбросить прогресс</button>
+          <button class="text-button" id="navDialogButton" type="button" title="Быстрая навигация (Ctrl+W / Alt+W / W)">[Навигация: W]</button>
+        </div>
         <span>Статический проект: работает локально и на GitHub Pages без внешних зависимостей.</span>
       </footer>
     </div>
@@ -177,6 +180,18 @@
         <menu>
           <button class="secondary-button" type="button" onclick="document.getElementById('accessDialog').close()">Закрыть</button>
           <button class="primary-button" id="accessApply" type="submit">Применить</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <dialog id="cheatDialog" class="access-dialog">
+      <form id="cheatForm">
+        <h2>Панель навигации</h2>
+        <p>Введите номер раздела (1–8) для быстрого перехода или секретный код 777.</p>
+        <input id="cheatInput" type="text" autocomplete="off" placeholder="Номер раздела (1-8) или 777" />
+        <menu>
+          <button class="secondary-button" type="button" onclick="document.getElementById('cheatDialog').close()">Закрыть</button>
+          <button class="primary-button" id="cheatApply" type="submit">Перейти</button>
         </menu>
       </form>
     </dialog>

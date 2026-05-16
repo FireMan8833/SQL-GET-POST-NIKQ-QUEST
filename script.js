@@ -580,6 +580,10 @@ const els = {
   accessDialog: document.querySelector("#accessDialog"),
   accessCode: document.querySelector("#accessCode"),
   accessApply: document.querySelector("#accessApply"),
+  cheatDialog: document.querySelector("#cheatDialog"),
+  cheatInput: document.querySelector("#cheatInput"),
+  cheatApply: document.querySelector("#cheatApply"),
+  navDialogButton: document.querySelector("#navDialogButton"),
   brandButton: document.querySelector("#brandButton"),
   canvas: document.querySelector("#stormCanvas"),
   transmissionKicker: document.querySelector("#transmissionKicker"),
@@ -1169,6 +1173,89 @@ function accessAdvance() {
   playBlip("correct");
 }
 
+function cheatAdvance() {
+  const val = els.cheatInput.value.trim();
+  const num = Number(val);
+
+  if (val === "777") {
+    state.started = true;
+    const arcadeStage = pendingArcadeStage();
+    const currentQuest = state.index < QUESTS.length ? QUESTS[state.index] : null;
+    let transitionText = "";
+    if (arcadeStage) {
+      if (!state.arcadesCompleted.includes(arcadeStage)) state.arcadesCompleted.push(arcadeStage);
+      state.score += ARCADES[arcadeStage].reward;
+      transitionText = "Код 777 принят. Шлюз аркады мгновенно пройден. Начислены максимальные очки.";
+    } else if (state.index < QUESTS.length) {
+      if (!state.completed.includes(currentQuest.id)) state.completed.push(currentQuest.id);
+      state.score += 100;
+      transitionText = `Код 777 принят. Сектор ${state.index + 1} пройден. Верный ответ: ${correctAnswerLabel(currentQuest)}. ${currentQuest.explanation}`;
+      state.index += 1;
+    } else {
+      transitionText = "Код 777 принят. Финальный протокол активен.";
+    }
+    saveState();
+    els.cheatInput.value = "";
+    els.cheatDialog.close();
+    arcadeRuntime = null;
+    showTransmission({
+      kicker: "Секретный протокол 777",
+      title: "Мгновенный взлом",
+      text: transitionText,
+      autoClose: true,
+      celebrate: true,
+      onDone: render,
+    });
+    triggerScreenFx("correct");
+    createSparkBurst("correct", 24);
+    playBlip("correct");
+    return;
+  }
+
+  if (!Number.isInteger(num) || num < 1 || num > 8) {
+    els.cheatInput.value = "";
+    els.cheatInput.placeholder = "Ошибка: введите 1–8 или 777";
+    playBlip("wrong");
+    return;
+  }
+
+  state.started = true;
+  const targetIndex = (num - 1) * 5;
+  state.index = targetIndex;
+
+  for (let i = 0; i < targetIndex; i += 1) {
+    const q = QUESTS[i];
+    if (q && !state.completed.includes(q.id)) state.completed.push(q.id);
+    if (!state.seenBriefs.includes(i + 1)) state.seenBriefs.push(i + 1);
+  }
+
+  if (num >= 5) {
+    if (!state.arcadesCompleted.includes(20)) state.arcadesCompleted.push(20);
+  }
+
+  let expectedScore = targetIndex * 100;
+  if (num >= 5) expectedScore += ARCADES[20].reward;
+  state.score = Math.max(state.score, expectedScore);
+
+  saveState();
+  els.cheatInput.value = "";
+  els.cheatInput.placeholder = "Номер раздела (1-8) или 777";
+  els.cheatDialog.close();
+  arcadeRuntime = null;
+
+  showTransmission({
+    kicker: "Навигационный шлюз",
+    title: `Переход к Главе ${num}`,
+    text: `Успешно выполнен автоматический переход к разделу ${num}: «${CHAPTERS[num - 1]}». Все предыдущие секторы и шлюзы переведены в статус пройденных.`,
+    autoClose: true,
+    celebrate: true,
+    onDone: render,
+  });
+  triggerScreenFx("correct");
+  createSparkBurst("correct", 20);
+  playBlip("correct");
+}
+
 function renderFinish() {
   const max = QUESTS.length * 100 + ARCADES[20].reward + ARCADES[40].reward;
   const percent = Math.round((state.score / max) * 100);
@@ -1345,10 +1432,20 @@ els.arcadeContinue.addEventListener("click", continueAfterArcade);
 els.resetButton.addEventListener("click", resetProgress);
 els.restartButton.addEventListener("click", resetProgress);
 els.musicButton.addEventListener("click", toggleMusic);
+els.navDialogButton.addEventListener("click", () => {
+  if (els.accessDialog.open) els.accessDialog.close();
+  els.cheatDialog.showModal();
+  window.setTimeout(() => els.cheatInput.focus(), 30);
+});
 const accessForm = document.querySelector("#accessForm");
 accessForm.addEventListener("submit", (event) => {
   event.preventDefault();
   accessAdvance();
+});
+const cheatForm = document.querySelector("#cheatForm");
+cheatForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  cheatAdvance();
 });
 els.answerForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -1357,19 +1454,29 @@ els.answerForm.addEventListener("submit", (event) => {
 
 document.addEventListener("keydown", (event) => {
   const isInputActive = document.activeElement && (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA");
-  if ((event.ctrlKey && event.altKey && event.key.toLowerCase() === "k") ||
-      (!isInputActive && !els.accessDialog.open && (event.key.toLowerCase() === "p" || event.key.toLowerCase() === "п"))) {
+  if (!els.cheatDialog.open && ((event.ctrlKey && event.key.toLowerCase() === "w") ||
+      (event.altKey && event.key.toLowerCase() === "w") ||
+      (!isInputActive && !els.accessDialog.open && (event.key.toLowerCase() === "w" || event.key.toLowerCase() === "ц")))) {
     event.preventDefault();
+    if (els.accessDialog.open) els.accessDialog.close();
+    els.cheatDialog.showModal();
+    window.setTimeout(() => els.cheatInput.focus(), 30);
+    return;
+  }
+  if (!els.accessDialog.open && ((event.ctrlKey && event.altKey && event.key.toLowerCase() === "k") ||
+      (!isInputActive && !els.cheatDialog.open && (event.key.toLowerCase() === "p" || event.key.toLowerCase() === "п")))) {
+    event.preventDefault();
+    if (els.cheatDialog.open) els.cheatDialog.close();
     els.accessDialog.showModal();
     window.setTimeout(() => els.accessCode.focus(), 30);
     return;
   }
-  if (event.key === "Enter" && !els.accessDialog.open && !els.transmissionScreen.classList.contains("hidden")) {
+  if (event.key === "Enter" && !els.accessDialog.open && !els.cheatDialog.open && !els.transmissionScreen.classList.contains("hidden")) {
     event.preventDefault();
     closeTransmission();
     return;
   }
-  if (event.key === "Enter" && !els.accessDialog.open && state.started && state.index < QUESTS.length) {
+  if (event.key === "Enter" && !els.accessDialog.open && !els.cheatDialog.open && state.started && state.index < QUESTS.length) {
     event.preventDefault();
     if (currentAnswered) nextQuest();
     else checkAnswer();

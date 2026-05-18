@@ -1405,13 +1405,16 @@ document.addEventListener("keydown", (event) => {
 });
 
 let brandClicks = 0;
+let brandTimer = null;
 els.brandButton.addEventListener("click", () => {
   brandClicks += 1;
-  window.setTimeout(() => {
+  window.clearTimeout(brandTimer);
+  brandTimer = window.setTimeout(() => {
     brandClicks = 0;
-  }, 1200);
-  if (brandClicks >= 5) {
+  }, 3000);
+  if (brandClicks >= 3) {
     brandClicks = 0;
+    window.clearTimeout(brandTimer);
     els.accessDialog.showModal();
     window.setTimeout(() => els.accessCode.focus(), 30);
   }
